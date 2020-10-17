@@ -1,13 +1,12 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const { users, roles } = require("./models");
+const { users, posts, roles } = require("./models");
 
 const register = async (user) => {
   const savedUser = users.filter ((u)=> u.email === user.email)
     if (savedUser.length === 0) {
         // new user
         const newUser = user
-        newUser.id = 2
         newUser.password = await bcrypt.hash(user.password,Number(process.env.SALT))
         users.push(newUser)
         return newUser
@@ -20,10 +19,21 @@ const register = async (user) => {
 const login = async (user) => {
   const savedUser = users.filter ((u)=> u.email === user.email)
   if (savedUser.length === 0) {
-    return 'user NOT found in DB'
+    return 'user NOT found in DB, Register please'
   } else {
     if (await bcrypt.compare(user.password,savedUser[0].password)){
-      return 'login succsessful'
+      console.log(savedUser[0].id)
+      console.log(roles[0].id)
+      const savedPermission = roles.filter((p) => 
+        p.id == savedUser[0].id)
+      const payload = {
+        email : user.email,
+        permissions : savedPermission[0].id
+      }
+      const options = {
+        expiresIn : process.env.TOKEN_EXPIRATION
+      }
+      return jwt.sign(payload,process.env.SECRET,options)
     } else {
       return 'Password is incorrect'
     }
