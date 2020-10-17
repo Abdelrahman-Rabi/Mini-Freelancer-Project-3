@@ -58,7 +58,8 @@ const getPosts = () => {
   return posts;
 };
 
-const createPost = async (post) => {
+const createPost = async (post, email) => {
+  post.email = email
   posts.push(post)
   return 'you created post successfully'
 }

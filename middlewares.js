@@ -1,3 +1,4 @@
+const { request } = require("express");
 const jwt = require("jsonwebtoken");
 
 module.exports = async (req, res, next) => {
@@ -9,8 +10,6 @@ jwt.verify(userToken,process.env.SECRET,(err,result)=>{
     if (err) res.json('You have problem with your TOKEN, Mostly you do not have permession to access here' )
     console.log ('RESULT: ', result)
     req.result = result
-
-    // res.json('res from middleware')
     next()
 })
 };

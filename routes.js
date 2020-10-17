@@ -34,9 +34,10 @@ authRouter.post("/login", async (req, res) => {
 });
 
 authRouter.post('/create_post', checkPermission, async (req,res) => {
-  if (req.result.permissions == 1) {
+  const {email, permissions} = req.result
+  if (permissions == 1 || permissions == 2 ) {
     try {
-      res.json(await createPost(req.body))
+      res.json(await createPost(req.body, email))
     } catch (err) {
       throw err
     }
