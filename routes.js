@@ -9,7 +9,7 @@ authRouter.get("/", async (req, res) => {
 });
 
 authRouter.get("/protected", middleware, (req, res) => {
-  res.json("Hello World");
+  res.json("you are allowed to read");
 });
 
 authRouter.post("/register", async (req, res) => {
