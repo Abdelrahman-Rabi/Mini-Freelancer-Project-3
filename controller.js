@@ -54,8 +54,18 @@ const getUsers = () => {
   return users;
 };
 
+const getPosts = () => {
+  return posts;
+};
+
+const createPost = async (post) => {
+  posts.push(post)
+  return 'you created post successfully'
+}
 module.exports = {
   register,
   login,
   getUsers,
+  getPosts,
+  createPost
 };
