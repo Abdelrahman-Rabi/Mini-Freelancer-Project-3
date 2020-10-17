@@ -1,6 +1,6 @@
 const express = require("express");
 const { register, login, getUsers } = require("./controller");
-const middleware = require("./middlewares");
+const checkPermission = require("./middlewares");
 
 const authRouter = express.Router();
 
@@ -8,7 +8,7 @@ authRouter.get("/", async (req, res) => {
   res.json(await getUsers());
 });
 
-authRouter.get("/protected", middleware, (req, res) => {
+authRouter.get("/protected", checkPermission, (req, res) => {
   res.json("you are allowed to read");
 });
 
