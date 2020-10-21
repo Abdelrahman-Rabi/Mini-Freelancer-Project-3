@@ -2,6 +2,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { users, posts, roles } = require("./models");
 const User = require("./users")
+const Post = require("./posts")
 
 const register = async (user) => {
   const savedUser = users.filter ((u)=> u.email === user.email)
@@ -52,7 +53,7 @@ const login = async (user) => {
 };
 
 const getUsers = () => {
-  return users;
+  return User;
 };
 
 const getPosts = () => {
@@ -64,10 +65,33 @@ const createPost = async (post, email) => {
   posts.push(post)
   return 'you created post successfully'
 }
+
+const createuser = async (user) => {
+  const NewUser = new User({
+    firstName : user.firstName,
+    secondName : user.secondName,
+    email : user.email,
+    password : user.password,
+    phoneNumber: user.phoneNumber
+  })
+  .save()
+  .then((result) => {
+    console.log('RESULT: ', result);
+    return result
+  })
+  .catch((err) => {
+    console.log('ERR: ', err);
+  });
+
+}
+
+
+
 module.exports = {
   register,
   login,
   getUsers,
   getPosts,
-  createPost
+  createPost,
+  createuser
 };

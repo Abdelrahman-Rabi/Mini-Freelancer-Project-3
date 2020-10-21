@@ -1,5 +1,5 @@
 const express = require("express");
-const { register, login, getUsers, getPosts, createPost } = require("./controller");
+const { register, login, getUsers, getPosts, createPost, createuser} = require("./controller");
 const checkPermission = require("./middlewares");
 
 const authRouter = express.Router();
@@ -45,5 +45,13 @@ authRouter.post('/create_post', checkPermission, async (req,res) => {
     res.json('you are NOT allowed to create Post')
   }
 })
+
+authRouter.post("/createuser", async (req, res) => {
+  try {
+    res.json(await createuser(req.body));
+  } catch (err) {
+    throw err;
+  }
+});
 
 module.exports = authRouter;
