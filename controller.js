@@ -1,6 +1,7 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { users, posts, roles } = require("./models");
+const User = require("./users")
 
 const register = async (user) => {
   const savedUser = users.filter ((u)=> u.email === user.email)
