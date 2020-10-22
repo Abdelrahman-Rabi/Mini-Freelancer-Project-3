@@ -1,5 +1,5 @@
 const express = require("express");
-const { register, login, getUsers, getPosts, createPost, createuser} = require("./controller");
+const { register, login, getUsers, getPosts, createPost, createUser} = require("./controller");
 const checkPermission = require("./middlewares");
 
 const authRouter = express.Router();
@@ -17,13 +17,7 @@ authRouter.get("/protected", checkPermission, (req, res) => {
   res.json("you are allowed to read");
 });
 
-authRouter.post("/register", async (req, res) => {
-  try {
-    res.json(await register(req.body));
-  } catch (err) {
-    throw err;
-  }
-});
+// authRouter.post("/register", done by mongoose
 
 authRouter.post("/login", async (req, res) => {
   try {
@@ -33,22 +27,30 @@ authRouter.post("/login", async (req, res) => {
   }
 });
 
-authRouter.post('/create_post', checkPermission, async (req,res) => {
-  const {email, permissions} = req.result
-  if (permissions == 1 || permissions == 2 ) {
-    try {
-      res.json(await createPost(req.body, email))
-    } catch (err) {
-      throw err
-    }
-  } else {
-    res.json('you are NOT allowed to create Post')
-  }
-})
+// authRouter.post('/create_post', checkPermission, async (req,res) => {
+//   const {email, permissions} = req.result
+//   if (permissions == 1 || permissions == 2 ) {
+//     try {
+//       res.json(await createPost(req.body, email))
+//     } catch (err) {
+//       throw err
+//     }
+//   } else {
+//     res.json('you are NOT allowed to create Post')
+//   }
+// })
 
-authRouter.post("/createuser", async (req, res) => {
+authRouter.post("/register", async (req, res) => {
   try {
-    res.json(await createuser(req.body));
+    res.json(await createUser(req.body));
+  } catch (err) {
+    throw err;
+  }
+});
+
+authRouter.post('/create_post', async (req,res)=>{
+  try {
+    res.json(await createPost(req.body));
   } catch (err) {
     throw err;
   }

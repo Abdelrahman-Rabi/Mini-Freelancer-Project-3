@@ -52,22 +52,43 @@ const login = async (user) => {
 
 };
 
-const getUsers = () => {
-  return User;
+const getUsers = async () => {
+  try {
+    const allUsers = await User.find()
+    return allUsers
+  } catch (err) {
+    return err
+  }
 };
 
-const getPosts = () => {
-  return posts;
+const getPosts = async () => {
+  try {
+    const allPosts = await Post.find()
+    return allPosts
+  } catch (err) {
+    return err
+  }
 };
 
-const createPost = async (post, email) => {
-  post.email = email
-  posts.push(post)
-  return 'you created post successfully'
+const createPost = async (post) => {
+  const newPost = await new Post ({
+    fName : post.fName,
+    languages : post.languages,
+    skills : post.skills,
+    payments : post.payments
+  })
+  .save()
+  .then((result)=>{
+    console.log('RESULT: ', result)
+    return result
+  })
+  .catch((err)=>{
+    console.log('ERR', err)
+  })
 }
 
-const createuser = async (user) => {
-  const NewUser = new User({
+const createUser = async (user) => {
+  const NewUser = await new User({
     firstName : user.firstName,
     secondName : user.secondName,
     email : user.email,
@@ -93,5 +114,5 @@ module.exports = {
   getUsers,
   getPosts,
   createPost,
-  createuser
+  createUser
 };
