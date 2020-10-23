@@ -2,7 +2,8 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { users, posts, roles } = require("./models");
 const User = require("./users")
-const Post = require("./posts")
+const Post = require("./posts");
+const { remove } = require("./users");
 
 const register = async (user) => {
   const savedUser = users.filter ((u)=> u.email === user.email)
@@ -106,7 +107,14 @@ const createUser = async (user) => {
 
 }
 
-
+const deletePost = async (postId) => {
+  try {
+    const removedPost = await Post.remove({_id : postId})
+    return removedPost
+  } catch (err) {
+    return err
+  }
+}
 
 module.exports = {
   register,
@@ -114,5 +122,6 @@ module.exports = {
   getUsers,
   getPosts,
   createPost,
-  createUser
+  createUser,
+  deletePost
 };
