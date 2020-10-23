@@ -116,6 +116,17 @@ const deletePost = async (postId) => {
   }
 }
 
+const updatePost = async (postId, post) => {
+  try {
+    console.log(postId)
+    console.log(post.skills)
+    const updatePost = await Post.updateOne({_id : postId}, {$set: {skills : post.skills}})
+  return updatePost
+  } catch (err) {
+    return err
+  }
+}
+
 module.exports = {
   register,
   login,
@@ -123,5 +134,6 @@ module.exports = {
   getPosts,
   createPost,
   createUser,
-  deletePost
+  deletePost,
+  updatePost
 };

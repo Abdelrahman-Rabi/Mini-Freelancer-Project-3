@@ -1,5 +1,5 @@
 const express = require("express");
-const { register, login, getUsers, getPosts, createPost, createUser, deletePost} = require("./controller");
+const { register, login, getUsers, getPosts, createPost, createUser, deletePost, updatePost} = require("./controller");
 const checkPermission = require("./middlewares");
 
 const authRouter = express.Router();
@@ -50,5 +50,13 @@ authRouter.delete('/:postId', async (req,res)=>{
     throw err;
   }
 });
+
+authRouter.put('/:postId', async (req,res) => {
+  try {
+    res.json(await updatePost(req.params.postId, req.body));
+  } catch (err) {
+    throw err;
+  }
+})
 
 module.exports = authRouter;
