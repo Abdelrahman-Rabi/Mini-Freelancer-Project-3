@@ -1,5 +1,5 @@
 const express = require("express");
-const { register, login, getUsers, getPosts, createPost, createUser, deletePost, updatePost} = require("./controller");
+const { register, login, getUsers, getPosts, createPost, createUser, deletePost, updatePost, deleteUser} = require("./controller");
 const checkPermission = require("./middlewares");
 
 const authRouter = express.Router();
@@ -27,13 +27,7 @@ authRouter.post("/login", async (req, res) => {
   }
 });
 
-authRouter.post("/register", async (req, res) => {
-  try {
-    res.json(await createUser(req.body));
-  } catch (err) {
-    throw err;
-  }
-});
+authRouter.post("/register", createUser)
 
 authRouter.post('/create_post', async (req,res)=>{
   try {
@@ -43,9 +37,26 @@ authRouter.post('/create_post', async (req,res)=>{
   }
 });
 
-authRouter.delete('/:postId', async (req,res)=>{
+authRouter.delete('/post/:postId', async (req,res)=>{
   try {
     res.json(await deletePost(req.params.postId));
+  } catch (err) {
+    throw err;
+  }
+});
+
+authRouter.post('/test', async (req,res)=>{
+  try {
+    const result = req.body.username
+    res.json(result);
+  } catch (err) {
+    throw err;
+  }
+});
+
+authRouter.delete('/user/:userId', async (req,res)=>{
+  try {
+    res.json(await deleteUser(req.params.userId));
   } catch (err) {
     throw err;
   }

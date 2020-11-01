@@ -88,29 +88,32 @@ const createPost = async (post) => {
   })
 }
 
-const createUser = async (user) => {
-  const NewUser = await new User({
-    firstName : user.firstName,
-    secondName : user.secondName,
-    email : user.email,
-    password : user.password,
-    phoneNumber: user.phoneNumber
-  })
+const createUser =  (req, res) => {
+  const newUser =  new User(req.body)
   .save()
   .then((result) => {
     console.log('RESULT: ', result);
-    return result
+    res.json(result)
   })
   .catch((err) => {
     console.log('ERR: ', err);
+    res.json(err)
   });
-
 }
 
 const deletePost = async (postId) => {
   try {
     const removedPost = await Post.remove({_id : postId})
     return removedPost
+  } catch (err) {
+    return err
+  }
+}
+
+const deleteUser = async (userId) => {
+  try {
+    const removedUser = await User.remove({_id : userId})
+    return removedUser
   } catch (err) {
     return err
   }
@@ -135,5 +138,6 @@ module.exports = {
   createPost,
   createUser,
   deletePost,
-  updatePost
+  updatePost,
+  deleteUser
 };
