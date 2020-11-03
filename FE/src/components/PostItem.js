@@ -8,8 +8,7 @@ class PostItem extends Component {
   };
 
   render() {
-    const { name, country, Lang, skills, payments } = this.props.onePost;
-
+    const { id, name, country, Lang, skills, payments } = this.props.onePost;
     return (
       <div style={this.getStlye()}>
         <p>
@@ -19,10 +18,22 @@ class PostItem extends Component {
         <p>
           Skills : {skills} &nbsp;&nbsp;|| &nbsp;&nbsp; Payment &nbsp;&nbsp;||
           &nbsp;&nbsp; {payments}
+          <button onClick={this.props.delPost.bind(this, id)} style={btnStyle}>
+            X
+          </button>
         </p>
       </div>
     );
   }
 }
 
+const btnStyle = {
+  background: "#ff0000",
+  color: "#fff",
+  border: "none",
+  padding: "5px 10px",
+  boarderRadius: "50%",
+  cursor: "pointer",
+  float: "right",
+};
 export default PostItem;

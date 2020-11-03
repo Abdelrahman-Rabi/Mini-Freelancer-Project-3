@@ -4,7 +4,7 @@ import PostItem from "./PostItem";
 class PostList extends Component {
   render() {
     const post1 = this.props.postArr.map((post, i) => (
-      <PostItem onePost={post} key={i} />
+      <PostItem onePost={post} key={i} delPost={this.props.delPost} />
     ));
     return (
       <div>

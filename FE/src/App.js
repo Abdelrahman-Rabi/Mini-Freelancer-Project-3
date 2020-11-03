@@ -9,6 +9,7 @@ export default class App extends Component {
     this.state = {
       posts: [
         {
+          id: "1",
           name: "abd",
           country: "Jordan",
           Lang: "Arabic",
@@ -16,6 +17,7 @@ export default class App extends Component {
           payments: "paypla",
         },
         {
+          id: "2",
           name: "Rabie",
           country: "KSA",
           Lang: "Eng",
@@ -23,6 +25,7 @@ export default class App extends Component {
           payments: "paypla",
         },
         {
+          id: "3",
           name: "Moh",
           country: "Jordan",
           Lang: "Arabic",
@@ -40,12 +43,18 @@ export default class App extends Component {
     newArr.push(newPost);
     this.setState({ posts: newArr });
   };
+
+  delPost = (id) => {
+    this.setState({
+      posts: [...this.state.posts.filter((post) => post.id !== id)],
+    });
+  };
   render() {
     return (
       <div>
         <h1>APP</h1>
         <NewPost addPost={this.createNewPost} />
-        <PostList postArr={this.state.posts} />
+        <PostList delPost={this.delPost} postArr={this.state.posts} />
       </div>
     );
   }
