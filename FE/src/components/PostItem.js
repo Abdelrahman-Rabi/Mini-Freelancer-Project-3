@@ -8,15 +8,17 @@ class PostItem extends Component {
   };
 
   render() {
-    const { name, country, Lang, skills, payment } = this.props.onePost;
+    const { name, country, Lang, skills, payments } = this.props.onePost;
 
     return (
       <div style={this.getStlye()}>
         <p>
-          Freelancer : {name} , Country : {country} , Lang : {Lang}
+          Freelancer : {name} &nbsp;&nbsp;|| &nbsp;&nbsp; Country : {country}{" "}
+          &nbsp;&nbsp;|| &nbsp;&nbsp; Lang : {Lang}
         </p>
         <p>
-          Skills : {skills} , payment : {payment}
+          Skills : {skills} &nbsp;&nbsp;|| &nbsp;&nbsp; Payment &nbsp;&nbsp;||
+          &nbsp;&nbsp; {payments}
         </p>
       </div>
     );

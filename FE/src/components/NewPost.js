@@ -6,7 +6,7 @@ class NewPost extends Component {
     this.state = {
       name: "",
       country: "",
-      lang: "",
+      Lang: "",
       skills: "",
       payments: "",
     };
@@ -20,7 +20,7 @@ class NewPost extends Component {
     this.setState({ country: e.target.value });
   };
   handleLangChange = (e) => {
-    this.setState({ lang: e.target.value });
+    this.setState({ Lang: e.target.value });
   };
 
   handleSkillsChange = (e) => {
@@ -32,13 +32,13 @@ class NewPost extends Component {
 
   handleSubmit = (e) => {
     console.log(this.state.name);
+    e.preventDefault();
     this.props.addPost(this.state);
-    e.preventDefult();
   };
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
+      <form onSubmit={this.handleSubmit} className="submit-form">
         <div>
           <label>Freelancer Name : </label>
           <input
@@ -61,7 +61,7 @@ class NewPost extends Component {
           <label>Language : </label>
           <input
             type="text"
-            value={this.state.lang}
+            value={this.state.Lang}
             onChange={this.handleLangChange}
           ></input>
         </div>

@@ -36,7 +36,6 @@ export default class App extends Component {
   createNewPost = (post) => {
     const { name, country, Lang, skills, payments } = post;
     const newPost = { name, country, Lang, skills, payments };
-    // console.log(name, country, Lang, skills, payments);
     const newArr = [...this.state.posts];
     newArr.push(newPost);
     this.setState({ posts: newArr });
